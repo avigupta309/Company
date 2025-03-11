@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Login } from "./components/Login/Login";
 import { ForgetPassword } from "./components/Login/Forget";
 import { Signup } from "./components/Login/SignUp";
+import { World } from "./components/World/World";
 
 export default function App() {
   const allRoutes = createBrowserRouter([
@@ -16,6 +17,10 @@ export default function App() {
     {
         path:'Signup',
         element:<Signup/>
+    },
+    {
+      path:'country',
+      element:<World/>
     }
   ]);
   return(

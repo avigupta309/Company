@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ContextApi } from "../ContextApi/ContextApi";
 import { Dashboard } from "../Dashboard/Dashboard";
+import { World } from "../World/World";
 interface UserProps {
   password: string;
   email: string;
@@ -112,6 +113,7 @@ export const Login: React.FC = () => {
           </Link>
         </div>
       </div>
+      <World/>
     </div>
   );
 };
