@@ -36,7 +36,7 @@ export const World: React.FC = () => {
   const CountryList = country.map((val, index) => {
     return (
       <div
-        className="card w-2xl shadow-2xl  flex flex-col items-start w-3xs"
+        className="card  shadow-2xl  flex flex-col items-start w-3xs"
         key={index}
         style={{ margin: "3px", fontSize: "clamp(0.5rem, 2vw, 3rem)" }}
       >
@@ -45,7 +45,7 @@ export const World: React.FC = () => {
         <i>Full Name - {val.name.official}</i>
         <p>Capital - {val.capital}</p>
         <Link to={`/unikCountry/${val.name.common}`}>
-          <button className="btn btn-wide absolute bottom-0  text-black bg-gray-50">
+          <button className="btn btn-wide bottom-0 relative w-[20rem] text-black bg-gray-50">
             {val.name.common}
           </button>
         </Link>
@@ -61,7 +61,7 @@ export const World: React.FC = () => {
 
   return (
     <>
-      <div className="bg-fuchsia-400 h-full w-full ">
+      <div className="  h-full w-full ">
       <div className="w-full bg-red-500 ">
           <label className="input h-12 bg-white text-black  relative top-[2rem] left-[2rem] mb-[3rem]">
             <svg
@@ -98,7 +98,7 @@ export const World: React.FC = () => {
           </label>
           </div>
         <div
-          className="main h-full w-full grid   gap-4 bg-cyan-600 gap-y-10"
+          className="main h-full w-full grid   gap-4 gap-y-10"
           style={{
             gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
           }}

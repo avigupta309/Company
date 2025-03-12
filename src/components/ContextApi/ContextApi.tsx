@@ -33,6 +33,12 @@ export const ContextProvider: React.FC<providerProps> = (props) => {
       userName: "Avinash309",
       gender:"male",
     },
+    {
+      email: "prabej@gmail.com",
+      password: "prabej321",
+      userName: "MD.Prabej",
+      gender:"male",
+    }
   ]);
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { ContextApi } from "../ContextApi/ContextApi";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { EyeIcon, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 interface userProps {
   userName: string;
   password: string;
@@ -15,16 +16,22 @@ export const Signup: React.FC = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<userProps>();
   const [eye, setEye] = useState<boolean>(false);
   const subMit: SubmitHandler<userProps> = (data: userProps) => {
     console.log(data);
     receiveData?.setUser(data);
+    setTimeout(()=>{
+      reset();
+      toast.success("You Have Sucessfully Create Account On .... Mr/Ms"+data.userName)
+    },1500)
     // setLoggerId(data)
   };
   return (
     <div className="w-96 mx-auto text-black p-6 border rounded-lg shadow-lg  bg-white">
+      <ToastContainer/>
       <h2 className="text-2xl font-bold mb-6 text-center text-emerald-600">
         Signup
       </h2>

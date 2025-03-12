@@ -8,6 +8,11 @@ interface countryProps {
   independent: boolean;
   landlocked: boolean;
   unMember: boolean;
+  idd: { root: string; suffixes: string[] };
+  startOfWeek: string;
+  capital: string[];
+  coatOfArms: { png: string };
+  borders: string[];
 }
 
 export const Country: React.FC = () => {
@@ -31,52 +36,71 @@ export const Country: React.FC = () => {
 
   return (
     <>
-      {loading ? (
-        countryData.map((val, index) => {
-          return (
-            <div
-              key={index}
-              className="p-5 text-black w-full h-full bg-gray-100"
-            >
-              <h1 className="text-3xl font-bold mb-4">{}</h1>
-              <img src={val.flags.png} className="h-32 mb-4" />
-              <p className="text-2xl font-medium">{val.name.common}</p>
+      <div className="w-full grid h-full">
+        {loading ? (
+          countryData.map((val, index) => {
+            return (
+              <div
+                key={index}
+                className="p-5 text-black w-full h-full bg-gray-300 shadow-2xl"
+              >
+                <h1 className="text-3xl font-bold mb-4">{}</h1>
+                <img src={val.flags.png} className="h-32 mb-4" />
+                <p className="text-2xl font-medium">{val.name.common}</p>
 
-              <div className="space-y-2">
-                <p>
-                  <strong>Official Name:</strong>
-                  {val.name.official}
-                </p>
-                <p>
-                  <strong>Population:</strong>
-                  {val.population}
-                </p>
-                <p>
-                  <strong>Region:</strong>
-                  {val.region}
-                </p>
-                <p>
-                  <strong>Independent:</strong> {val.independent ? "Yes" : "No"}
-                </p>
-                <p>
-                  <strong>Landlocked:</strong> {val.landlocked ? "Yes" : "No"}
-                </p>
-                <p>
-                  <strong>UN Member:</strong> {val.unMember ? "Yes" : "No"}
-                </p>
+                <div className="space-y-2">
+                  <p>
+                    <strong>Official Name:</strong>
+                    {val.name.official}
+                  </p>
+                  <p>
+                    <strong>Capita City:</strong>
+                    {val.capital}
+                  </p>
+                  <p>
+                    <strong>Population:</strong>
+                    {val.population}
+                  </p>
+                  <p>
+                    <strong>Region:</strong>
+                    {val.region}
+                  </p>
+                  <p>
+                    <strong>Independent:</strong>{" "}
+                    {val.independent ? "Yes" : "No"}
+                  </p>
+                  <p>
+                    <strong>Landlocked:</strong> {val.landlocked ? "Yes" : "No"}
+                  </p>
+                  <p>
+                    <strong>UN Member:</strong> {val.unMember ? "Yes" : "No"}
+                  </p>
+                  <p>
+                    <strong>Borders Share With: </strong>
+                    {val.borders?.join(", ") || "No borders"}
+                  </p>
+                  <p>
+                    <strong>Call Code:</strong>
+                    {val.idd.root} {val.idd.suffixes}
+                  </p>
+                  <p>
+                    <strong>Start Of Week:</strong> {val.startOfWeek}
+                  </p>
+                  <strong>Logo Of {val.name.common} Army</strong>
+                  <img src={val.coatOfArms.png} style={{ height: "10rem" }} />
+                </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="h-full w-full bg-white">
-          <img
-            className=""
-            src="https://cdn.dribbble.com/userupload/26649674/file/original-f2e1bd8730d240a4c24f847396f096db.gif"
-          />
-        </div>
-      )}
+            );
+          })
+        ) : (
+          <div className="h-full w-full bg-white">
+            <img
+              className=""
+              src="https://cdn.dribbble.com/userupload/26649674/file/original-f2e1bd8730d240a4c24f847396f096db.gif"
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 };
-

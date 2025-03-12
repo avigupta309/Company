@@ -4,48 +4,56 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ContextApi } from "../ContextApi/ContextApi";
 import { Dashboard } from "../Dashboard/Dashboard";
+import { toast, ToastContainer } from "react-toastify";
 interface UserProps {
   password: string;
   email: string;
-  userName:string;
-  gender:string;
+  userName: string;
+  gender: string;
 }
 
 export const Login: React.FC = () => {
- 
   const [eye, setEye] = useState<boolean>(false);
-  const[isLogin,setIsLogin]=useState<boolean>(false)
-  const { register, handleSubmit,formState:{errors} } = useForm<UserProps>();
-  const receiveData=useContext(ContextApi);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserProps>();
+  const receiveData = useContext(ContextApi);
   const submit: SubmitHandler<UserProps> = (data: UserProps) => {
-    if(!receiveData|| !receiveData.user){
-      console.error("Nothing in userData !")
-      return
-    } 
-
-   const matchUser=receiveData.user.find((user:UserProps)=>user.email==data.email && user.password == data.password);
-    if(matchUser){
-      setIsLogin(!isLogin)
-      receiveData.setLogger(matchUser)
-      console.log("sucessful login")
-      console.log(data)
-      console.log(receiveData.user)
-      console.log(matchUser)
-    }else{
-      console.log("Login Failed")
+    if (!receiveData || !receiveData.user) {
+      console.error("Nothing in userData !");
+      return;
     }
-    console.log(receiveData?.user)
+
+    const matchUser = receiveData.user.find(
+      (user: UserProps) =>
+        user.email == data.email && user.password == data.password
+    );
+    if (matchUser) {
+      setIsLogin(!isLogin);
+      receiveData.setLogger(matchUser);
+      toast.error("Login SucessFul");
+      console.log("sucessful login");
+      console.log(data);
+      console.log(receiveData.user);
+      console.log(matchUser);
+    } else {
+      console.log("Login Failed");
+      toast.error("Sorry Sir/Maam You Have Enter Wrong Password");
+    }
+    console.log(receiveData?.user);
     console.log(data);
   };
 
-  if(isLogin){
-    return <Dashboard/>
+  if (isLogin) {
+    return <Dashboard />;
   }
-
-
 
   return (
     <div>
+      <ToastContainer />
       {/* Login Box */}
       <div className="bg-white p-8 text-black rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-emerald-600">
@@ -58,12 +66,14 @@ export const Login: React.FC = () => {
               Email
             </label>
             <input
-              {...register("email",{required:"Must Enter Valid Email"})}
+              {...register("email", { required: "Must Enter Valid Email" })}
               type="email"
               className="mt-1 block w-full text-black px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your email"
             />
-            {errors.email && <span className="text-red-500">{errors.email.message}</span> }
+            {errors.email && (
+              <span className="text-red-500">{errors.email.message}</span>
+            )}
           </div>
           {/* Password Input */}
           <label className="block text-sm font-medium text-gray-700">
@@ -71,7 +81,9 @@ export const Login: React.FC = () => {
           </label>
           <div className="mt-1 w-full text-black px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-between">
             <input
-              {...register("password",{required:'At Least More Than 8 Digit'})}
+              {...register("password", {
+                required: "At Least More Than 8 Digit",
+              })}
               type={eye ? "text" : "password"}
               className=" border-none outline-none w-2xs"
               placeholder="Enter your password"
@@ -89,7 +101,9 @@ export const Login: React.FC = () => {
               )}
             </div>
           </div>
-          {errors.password && <span className="text-red-500">{errors.password.message}</span> }
+          {errors.password && (
+            <span className="text-red-500">{errors.password.message}</span>
+          )}
           {/* Submit Button */}
           <button
             type="submit"
