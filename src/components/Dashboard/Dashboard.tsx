@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { ContextApi } from "../ContextApi/ContextApi";
 import { Link } from "react-router-dom";
 export const Dashboard: React.FC = () => {
+  const currentTime=new Date().toLocaleDateString();
+  
   const receiveData = useContext(ContextApi);
   if (!receiveData?.user && receiveData?.user == undefined) {
     return;
@@ -15,8 +17,25 @@ export const Dashboard: React.FC = () => {
             "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
         }}
       >
-        <div className="profile-blur h-28 w-28 bg-transparent absolute top-4 left-4 backdrop-blur-xs flex flex-col">
-          <p>Name -{receiveData.logger?.userName} </p>
+        <div className="profile-blur h-28 text-green-600 bg-transparent absolute top-4 left-4 backdrop-blur-xs flex flex-col">
+          <p>
+            <strong>Name :</strong>
+            <p className="text-xl text-yellow-400 inline">
+              {receiveData.logger?.userName}
+            </p>
+          </p>
+          <p>
+            <strong>Gender :</strong>
+            <p className="text-xl text-yellow-400 inline">
+              {receiveData.logger?.gender}
+            </p>
+          </p>
+          <p>
+            <strong>Visiting Time :</strong>
+            <p className="text-xl text-yellow-400 inline">
+             {currentTime}
+            </p>
+          </p>
         </div>
         <div className="hero-overlay"></div>
         <div className="hero-content text-neutral-content text-center">
@@ -25,13 +44,19 @@ export const Dashboard: React.FC = () => {
               {receiveData.logger?.gender == "male" ? "Sir," : "Maam,"}
               {receiveData.logger?.userName}
             </h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+            <p className="mb-5 text-xl ">
+              Welcome to Imagination World , your gateway to discovering
+              fascinating facts, rich histories, and virtual experiences of
+              countries around the world. Select a country and embark on a
+              journey filled with intriguing insights, cultural highlights, and
+              a virtual exploration like never before. Whether you're a travel
+              enthusiast or just curious, our platform brings the world to
+              you—one country at a time!
             </p>
             <Link to={"/country"}>
-              <button className="btn btn-primary">Get Started</button>
+              <button className="btn btn-primary">
+                Explore the World Virtually!
+              </button>
             </Link>
           </div>
         </div>

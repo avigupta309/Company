@@ -4,6 +4,7 @@ import { ForgetPassword } from "./components/Login/Forget";
 import { Signup } from "./components/Login/SignUp";
 import { World } from "./components/World/World";
 import { Country } from "./components/World/Country";
+import { Map } from "./components/Map/Map";
 
 export default function App() {
   const allRoutes = createBrowserRouter([
@@ -27,7 +28,10 @@ export default function App() {
       path:'unikCountry/:countryName',
       element:<Country/>
     },
-  
+    {
+      path:'map',
+      element:<Map/>
+    }
 
   ]);
   return(

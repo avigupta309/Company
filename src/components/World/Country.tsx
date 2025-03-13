@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { ContextApi } from "../ContextApi/ContextApi";
 interface countryProps {
   name: { common: string; official: string };
   population: number;
@@ -13,36 +14,52 @@ interface countryProps {
   capital: string[];
   coatOfArms: { png: string };
   borders: string[];
+  extract: string;
 }
 
-export const Country: React.FC = () => {
+export const Country: React.FC<countryProps> = () => {
+  const receiveData = useContext(ContextApi);
   const [countryData, setCountryData] = useState<countryProps[]>([]);
+  const [wekipedia, setWekepedia] = useState<countryProps>();
   const [loading, setLoading] = useState<boolean>(false);
   const { countryName } = useParams<{ countryName: string }>();
   useEffect(() => {
     if (countryName) {
-      console.log(countryName);
       fetch(`https://restcountries.com/v3.1/name/${countryName}`).then(
         (response) => {
           response.json().then((data) => {
-            console.log(data);
             setCountryData(data);
             setLoading(!loading);
           });
         }
       );
+      fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${countryName}`
+      ).then((response) => {
+        response.json().then((data) => {
+          setWekepedia(data);
+          console.log(data.coordinates)
+          receiveData?.setLocation(data.coordinates)
+        });
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryName]);
 
   return (
     <>
       <div className="w-full grid h-full">
+        <div className="header h-[5rem] bg-fuchsia-400 fixed w-full top-0 flex items-center justify-center">
+          <p className="text-2xl">Selection Country</p>
+        </div>
+        <br />
+        <br />
         {loading ? (
           countryData.map((val, index) => {
             return (
               <div
                 key={index}
-                className="p-5 text-black w-full h-full bg-gray-300 shadow-2xl"
+                className="p-5 text-black bg-blue-400 shadow-2xl mb-10"
               >
                 <h1 className="text-3xl font-bold mb-4">{}</h1>
                 <img src={val.flags.png} className="h-32 mb-4" />
@@ -86,9 +103,16 @@ export const Country: React.FC = () => {
                   <p>
                     <strong>Start Of Week:</strong> {val.startOfWeek}
                   </p>
+                  <p className="bg-cyan-200 ">
+                    <strong className="text-xl">Start Of Week:</strong>{" "}
+                    {wekipedia?.extract}
+                  </p>
                   <strong>Logo Of {val.name.common} Army</strong>
                   <img src={val.coatOfArms.png} style={{ height: "10rem" }} />
                 </div>
+                <Link to={"/map"}>
+                  <button className="btn btn-primary">Explore the Map!</button>
+                </Link>
               </div>
             );
           })

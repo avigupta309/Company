@@ -25,10 +25,9 @@ export const World: React.FC = () => {
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all").then((response) => {
       response.json().then((data) => {
-        console.log(data[0].flags.png);
+        
         setCountry(data);
-        console.log(country);
-        console.log(data);
+      
       });
     });
   }, []);
@@ -54,8 +53,6 @@ export const World: React.FC = () => {
   });
 
   if (openCountryList) {
-    console.log(searchCountry);
-    console.log("opn");
     return <Country />;
   }
 

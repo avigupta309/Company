@@ -35,16 +35,12 @@ export const Login: React.FC = () => {
       setIsLogin(!isLogin);
       receiveData.setLogger(matchUser);
       toast.error("Login SucessFul");
-      console.log("sucessful login");
-      console.log(data);
-      console.log(receiveData.user);
-      console.log(matchUser);
+    
     } else {
-      console.log("Login Failed");
+     
       toast.error("Sorry Sir/Maam You Have Enter Wrong Password");
     }
-    console.log(receiveData?.user);
-    console.log(data);
+   
   };
 
   if (isLogin) {
