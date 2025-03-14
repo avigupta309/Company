@@ -6,7 +6,7 @@ interface worldProps {
   flags: { png: string };
   name: { common: string; official: string };
   languages: { [key: string]: string };
-  capital: string[];
+  capital?: string[];
 }
 
 export const World: React.FC = () => {
@@ -53,7 +53,7 @@ export const World: React.FC = () => {
   });
 
   if (openCountryList) {
-    return <Country />;
+    return <Country/>;
   }
 
   return (

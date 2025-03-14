@@ -17,7 +17,7 @@ interface countryProps {
   extract: string;
 }
 
-export const Country: React.FC<countryProps> = () => {
+export const Country: React.FC = () => {
   const receiveData = useContext(ContextApi);
   const [countryData, setCountryData] = useState<countryProps[]>([]);
   const [wekipedia, setWekepedia] = useState<countryProps>();
@@ -38,8 +38,8 @@ export const Country: React.FC<countryProps> = () => {
       ).then((response) => {
         response.json().then((data) => {
           setWekepedia(data);
-          console.log(data.coordinates)
-          receiveData?.setLocation(data.coordinates)
+          console.log(data.coordinates);
+          receiveData?.setLocation(data.coordinates);
         });
       });
     }
@@ -61,7 +61,6 @@ export const Country: React.FC<countryProps> = () => {
                 key={index}
                 className="p-5 text-black bg-blue-400 shadow-2xl mb-10"
               >
-                <h1 className="text-3xl font-bold mb-4">{}</h1>
                 <img src={val.flags.png} className="h-32 mb-4" />
                 <p className="text-2xl font-medium">{val.name.common}</p>
 
