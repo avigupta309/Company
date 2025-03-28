@@ -48,7 +48,7 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="w-screen h-screen flex justify-center items-center ">
       <ToastContainer />
       {/* Login Box */}
       <div className="bg-white p-8 text-black rounded-lg shadow-lg w-96">

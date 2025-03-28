@@ -50,7 +50,7 @@ export const Country: React.FC = () => {
     <>
       <div className="w-full grid h-full">
         <div className="header h-[5rem] bg-fuchsia-400 fixed w-full top-0 flex items-center justify-center">
-          <p className="text-2xl">Selection Country</p>
+          <p className="text-2xl">Selected Country</p>
         </div>
         <br />
         <br />
@@ -59,7 +59,7 @@ export const Country: React.FC = () => {
             return (
               <div
                 key={index}
-                className="p-5 text-black bg-blue-400 shadow-2xl mb-10"
+                className="p-5 text-black bg-blue-400 shadow-2xl mb-10 pt-10 "
               >
                 <img src={val.flags.png} className="h-32 mb-4" />
                 <p className="text-2xl font-medium">{val.name.common}</p>

@@ -33,7 +33,7 @@ export const ForgetPassword: React.FC = () => {
   }, [run, time]);
 
   return (
-    <div>
+    <div className="h-screen w-screen flex justify-center items-center">
       {/* Login Box */}
       <div className="bg-white text-black p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold mb-6 text-center text-emerald-600">

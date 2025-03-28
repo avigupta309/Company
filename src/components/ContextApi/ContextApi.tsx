@@ -33,7 +33,7 @@ export const ContextProvider: React.FC<providerProps> = (props) => {
   const setLocation=(data:locationProps)=>{
     setLocationInfo(data)
   }
-  console.log(location)
+  // console.log(location)
   const [logger, setLoggerInfo] = useState<userProps>();
   const setLogger = (data: userProps) => {
     setLoggerInfo(data);

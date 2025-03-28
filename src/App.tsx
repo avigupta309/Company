@@ -1,11 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Login } from "./components/Login/Login";
-import { ForgetPassword } from "./components/Login/Forget";
-import { Signup } from "./components/Login/SignUp";
-import { World } from "./components/World/World";
-import { Country } from "./components/World/Country";
 import { Map } from "./components/Map/Map";
-
+import {
+  Country,
+  ForgetPassword,
+  Login,
+  // Map,
+  Signup,
+  World,
+} from "./components/Provider/Provider";
 export default function App() {
   const allRoutes = createBrowserRouter([
     {
@@ -17,29 +19,27 @@ export default function App() {
       element: <ForgetPassword />,
     },
     {
-        path:'Signup',
-        element:<Signup/>
+      path: "Signup",
+      element: <Signup />,
     },
     {
-      path:'country',
-      element:<World/>
+      path: "country",
+      element: <World />,
     },
     {
-      path:'unikCountry/:countryName',
-      element:<Country/>
+      path: "unikCountry/:countryName",
+      element: <Country />,
     },
     {
-      path:'map',
-      element:<Map/>
-    }
-
+      path: "map",
+      element: <Map />,
+    },
   ]);
-  return(
-     <>
-      <div className="w-screen h-screen bg-blue-600  flex justify-center items-center">
-      <RouterProvider router={allRoutes}/>
+  return (
+    <>
+      <div className="  bg-cyan-100">
+        <RouterProvider router={allRoutes} />
       </div>
-      
-     </>
-  )
+    </>
+  );
 }
