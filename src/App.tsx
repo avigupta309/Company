@@ -31,7 +31,7 @@ export default function App() {
       element: <Country />,
     },
     {
-      path: "map",
+      path: "map/:commonName",
       element: <Map />,
     },
   ]);

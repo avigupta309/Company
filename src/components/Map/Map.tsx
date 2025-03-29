@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { ContextApi } from "../ContextApi/ContextApi";
+import { useParams } from "react-router-dom";
 
 interface LocationProps {
   lat: number;
@@ -20,9 +21,8 @@ function UpdateMapView({ center }: CenterProps) {
 
 export const Map: React.FC = () => {
   const receiveData = useContext(ContextApi);
-
   const [latLng, setLatLng] = useState<LocationProps | null>(null);
-
+  const {commonName}=useParams<{commonName:string}>()
   useEffect(() => {
     if (receiveData?.location) {
       setLatLng({
@@ -60,7 +60,7 @@ export const Map: React.FC = () => {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <Marker position={[latLng.lat, latLng.lon]}>
-            <Popup>Welcome to this city</Popup>
+            <Popup>Welcome to  {commonName} ,Jaana Hai Ki sirf Dekhna hi hai </Popup>
           </Marker>
           <UpdateMapView center={[latLng.lat, latLng.lon]} />
         </MapContainer>

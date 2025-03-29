@@ -45,7 +45,6 @@ export const Country: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryName]);
-
   return (
     <>
       <div className="w-full grid h-full">
@@ -109,12 +108,18 @@ export const Country: React.FC = () => {
                   <strong>Logo Of {val.name.common} Army</strong>
                   <img src={val.coatOfArms.png} style={{ height: "10rem" }} />
                 </div>
-                <Link to={"/map"}>
+                <div>
+                  <audio src=""></audio>
+                </div>
+                <Link to={`/map/${val.name.common}`}>
                   <button className="btn btn-primary">Explore the Map!</button>
                 </Link>
               </div>
+          
             );
+           
           })
+     
         ) : (
           <div className="h-full w-full bg-white">
             <img
