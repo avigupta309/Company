@@ -38,7 +38,7 @@ export const Country: React.FC = () => {
       ).then((response) => {
         response.json().then((data) => {
           setWekepedia(data);
-          console.log(data.coordinates);
+          // console.log(data.coordinates);
           receiveData?.setLocation(data.coordinates);
         });
       });
@@ -69,7 +69,7 @@ export const Country: React.FC = () => {
                     {val.name.official}
                   </p>
                   <p>
-                    <strong>Capita City:</strong>
+                    <strong>Capital City:</strong>
                     {val.capital}
                   </p>
                   <p>
@@ -108,18 +108,13 @@ export const Country: React.FC = () => {
                   <strong>Logo Of {val.name.common} Army</strong>
                   <img src={val.coatOfArms.png} style={{ height: "10rem" }} />
                 </div>
-                <div>
-                  <audio src=""></audio>
-                </div>
+             
                 <Link to={`/map/${val.name.common}`}>
                   <button className="btn btn-primary">Explore the Map!</button>
                 </Link>
               </div>
-          
             );
-           
           })
-     
         ) : (
           <div className="h-full w-full bg-white">
             <img

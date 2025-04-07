@@ -20,21 +20,21 @@ export const Dashboard: React.FC = () => {
         <div className="profile-blur h-28 text-green-600 bg-transparent absolute top-4 left-4 backdrop-blur-xs flex flex-col">
           <p>
             <strong>Name :</strong>
-            <p className="text-xl text-yellow-400 inline">
+            <span className="text-xl text-yellow-400 inline">
               {receiveData.logger?.userName}
-            </p>
+            </span>
           </p>
           <p>
             <strong>Gender :</strong>
-            <p className="text-xl text-yellow-400 inline">
+            <span className="text-xl text-yellow-400 inline">
               {receiveData.logger?.gender}
-            </p>
+            </span>
           </p>
           <p>
             <strong>Visiting Time :</strong>
-            <p className="text-xl text-yellow-400 inline">
+            <span className="text-xl text-yellow-400 inline">
              {currentTime}
-            </p>
+            </span>
           </p>
         </div>
         <div className="hero-overlay"></div>

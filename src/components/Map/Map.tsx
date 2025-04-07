@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { ContextApi } from "../ContextApi/ContextApi";
 import { useParams } from "react-router-dom";
 
 interface LocationProps {
@@ -20,49 +19,49 @@ function UpdateMapView({ center }: CenterProps) {
 }
 
 export const Map: React.FC = () => {
-  const receiveData = useContext(ContextApi);
-  const [latLng, setLatLng] = useState<LocationProps | null>(null);
-  const {commonName}=useParams<{commonName:string}>()
+  const [coordinates, setCoordinates] = useState<LocationProps | null>();
+  const { commonName } = useParams<{ commonName: string }>();
+  // console.log(commonName);
+
   useEffect(() => {
-    if (receiveData?.location) {
-      setLatLng({
-        lat: receiveData.location.lat,
-        lon: receiveData.location.lon,
+    if (commonName) {
+      fetch(
+        `https://en.wikipedia.org/api/rest_v1/page/summary/${commonName}`
+      ).then((response) => {
+        response.json().then((data) => {
+          // console.log(data);
+          setCoordinates(data.coordinates);
+        });
       });
-      const newLocation= {
-        lat: receiveData.location.lat,
-        lon: receiveData.location.lon,
-      };
-      localStorage.setItem("locationData", JSON.stringify(newLocation));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [receiveData?.location]);
-
-  useEffect(() => {
-    const storedLocation = localStorage.getItem("locationData");
-    if (storedLocation) {
-      setLatLng(JSON.parse(storedLocation));
-    }
-  }, []);
-
-  if (!latLng) {
-    return <p>Loading map...</p>;
+  }, [commonName]);
+  if (!coordinates) {
+    return (
+      <div className="h-full w-full bg-white">
+        <img
+          className=""
+          src="https://media.tenor.com/fnVo42SgddYAAAAM/dog.gif"
+        />
+      </div>
+    );
   }
-
+  // console.log(coordinates?.lat + "   " + coordinates?.lon);
   return (
     <div className="h-full w-full">
       <div className="container" style={{ height: "500px", width: "100%" }}>
         <MapContainer
-          center={[latLng.lat, latLng.lon]}
+          center={[coordinates.lat, coordinates.lon]}
           zoom={7}
           scrollWheelZoom={false}
           style={{ height: "100%", width: "100%" }}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <Marker position={[latLng.lat, latLng.lon]}>
-            <Popup>Welcome to  {commonName} ,Jaana Hai Ki sirf Dekhna hi hai </Popup>
+          <Marker position={[coordinates.lat, coordinates.lon]}>
+            <Popup>
+              Welcome to {commonName} ,Jaana Hai Ki sirf Dekhna hi hai{" "}
+            </Popup>
           </Marker>
-          <UpdateMapView center={[latLng.lat, latLng.lon]} />
+          <UpdateMapView center={[coordinates.lat, coordinates.lon]} />
         </MapContainer>
       </div>
     </div>
