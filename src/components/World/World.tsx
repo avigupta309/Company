@@ -23,7 +23,7 @@ export const World: React.FC = () => {
   }
 
   useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all").then((response) => {
+    fetch("https://restcountries.com/v3.1/all?fields=name,capital,region,population,flags").then((response) => {
       response.json().then((data) => {
         setCountry(data);
       });
@@ -92,6 +92,7 @@ export const World: React.FC = () => {
 
             <button
               onClick={handleClick}
+              type="button"
               className="btn btn-dash btn-success absolute right-0"
             >
               <Link to={`/unikCountry/${searchCountry}`}>Search</Link>

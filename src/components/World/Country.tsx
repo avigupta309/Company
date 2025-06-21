@@ -27,21 +27,30 @@ export const Country: React.FC = () => {
     if (countryName) {
       fetch(`https://restcountries.com/v3.1/name/${countryName}`).then(
         (response) => {
-          response.json().then((data) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        }).then((data) => {
             setCountryData(data);
             setLoading(!loading);
-          });
-        }
-      );
-      fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${countryName}`
-      ).then((response) => {
-        response.json().then((data) => {
+          }).catch((error)=>{
+          console.error("Error fetching CountryData data:", error);
+          })
+      fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${countryName}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
           setWekepedia(data);
-          // console.log(data.coordinates);
           receiveData?.setLocation(data.coordinates);
+        })
+        .catch((error) => {
+          console.error("Error fetching Wikipedia data:", error);
         });
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryName]);
@@ -108,7 +117,7 @@ export const Country: React.FC = () => {
                   <strong>Logo Of {val.name.common} Army</strong>
                   <img src={val.coatOfArms.png} style={{ height: "10rem" }} />
                 </div>
-             
+
                 <Link to={`/map/${val.name.common}`}>
                   <button className="btn btn-primary">Explore the Map!</button>
                 </Link>
